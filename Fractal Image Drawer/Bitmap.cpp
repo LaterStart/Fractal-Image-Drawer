@@ -33,4 +33,12 @@ bool Bitmap::Write(std::string fileName) {
 }
 
 void Bitmap::SetPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
+	uint8_t* pixel = pixels.get();
+
+	pixel += (y * 3) * width + (x * 3);
+
+	// bmp - little endian
+	pixel[0] = b;
+	pixel[1] = g;
+	pixel[2] = r;
 }
