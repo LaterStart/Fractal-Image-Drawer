@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-#pragma pack(2)
+#pragma pack(push, 2)
 struct BitmapInfoHeader {
 	int32_t headerSize{ 40 };
 	int32_t width;
@@ -15,3 +15,4 @@ struct BitmapInfoHeader {
 	int32_t colors{};
 	int32_t importantColors{};
 };
+#pragma pack(pop)
