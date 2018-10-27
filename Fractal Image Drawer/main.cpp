@@ -2,6 +2,7 @@
 #include <math.h>
 #include "Bitmap.h"
 #include "Mangelbrot.h"
+#include "ZoomList.h"
 using namespace std;
 
 int main() {
@@ -10,15 +11,19 @@ int main() {
 
 	Bitmap bitmap{ WIDTH, HEIGHT };
 
+	ZoomList zoomList(WIDTH, HEIGHT);
+	zoomList.Add(Zoom(WIDTH / 2, HEIGHT / 2, 4.0 / WIDTH));
+	zoomList.Add(Zoom(295, HEIGHT - 202, 0.1));
+	zoomList.Add(Zoom(312, HEIGHT - 304, 0.1));
+
 	unique_ptr<int[]> histogram(new int[Mangelbrot::MAX_ITERATIONS]{});
 	unique_ptr<int[]> fractal(new int[WIDTH*HEIGHT]{});
 
 	for (int y{}; y < HEIGHT; y++) {
 		for (int x{}; x < WIDTH; x++) {
-			double xFractal((x - WIDTH / 2 - 200)*2.0 / HEIGHT);
-			double yFractal((y - HEIGHT / 2)*2.0 / HEIGHT);
+			pair<double, double> coords = zoomList.DoZoom(x, y);
 
-			int iterations = Mangelbrot::GetIterations(xFractal, yFractal);
+			int iterations = Mangelbrot::GetIterations(coords.first, coords.second);
 
 			fractal[y * WIDTH + x] = iterations;
 
