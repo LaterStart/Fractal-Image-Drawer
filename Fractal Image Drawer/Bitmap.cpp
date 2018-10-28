@@ -5,7 +5,9 @@
 using namespace std;
 
 Bitmap::Bitmap(int width, int height) : 
-	width(width), height(height), pixels(new uint8_t[width*height * 3]{}) {
+		width(width),
+		height(height),
+		pixels(new uint8_t[width*height * 3]{}) {
 }
 
 bool Bitmap::Write(std::string fileName) {
@@ -33,7 +35,7 @@ bool Bitmap::Write(std::string fileName) {
 }
 
 void Bitmap::SetPixel(int x, int y, uint8_t r, uint8_t g, uint8_t b) {
-	uint8_t* pixel = pixels.get();
+	uint8_t* pixel{ pixels.get() };
 
 	pixel += (y * 3) * width + (x * 3);
 

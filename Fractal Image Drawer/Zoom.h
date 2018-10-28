@@ -5,5 +5,9 @@ struct Zoom {
 	int y{};
 	double scale{};
 
-	Zoom(int x, int y, double scale) : x(x), y(y), scale(scale) {};
+	Zoom(int x, int y, double scale) :
+			x(x),
+			y(y),
+			scale(scale) {
+	};
 };
